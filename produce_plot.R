@@ -33,6 +33,17 @@ plot(fit3)
 layout(1)
 dev.off()
 
+# use ggplot for Residuals v Fitted and Q-Q plots, send to pdf
+library(ggplot2)
+pdf("gg_fit3_plots.pdf")
+
+ggplot(fit3, aes(.fitted, .resid)) + geom_point() + geom_smooth(se = F) + 
+xlab("Fitted Values") + ylab("Residuals") + ggtitle("Residuals v Fitted")
+qplot(sample = resid(fit3), stat = 'qq') + xlab("Theoretical Quantiles") +
+ ylab("Standardized Residuals") + ggtitle("Normal Q-Q")
+
+dev.off()
+ 
 # Bonus Questions
 # 1. polynomial fit for V6 (number of rooms)
 polyfit <- lm(V14 ~ V6, data = x)
